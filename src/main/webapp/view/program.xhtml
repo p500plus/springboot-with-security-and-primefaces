@@ -1,0 +1,39 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:sec="http://www.springframework.org/security/tags">
+ 
+     <h:head>
+ 
+     </h:head>
+ 
+     <h:body>
+ 		
+ 		<div class="authorization-div">
+		    <sec:authorize access="hasRole('USER')">
+		      <p:outputLabel value="You have the USER role" />
+		    </sec:authorize>
+		    
+		    <sec:authorize access="hasRole('ADMIN')">
+		      <p:outputLabel value="You have the ADMIN role" />
+		    </sec:authorize>
+		 </div>
+		 
+		 <p:inputText value="#{authUser.showGreeting()}" />
+		 <sec:authorize access="isAuthenticated()">
+         <h:form onsubmit="this.action='#{request.contextPath}/logout';"
+		    class="logout-form">
+		    <p:commandButton value="Logout" ajax="false" />
+		 </h:form>
+ 		 </sec:authorize>
+ 		 
+ 		 <sec:authorize access="!isAuthenticated()">
+         LOGIN
+ 		 </sec:authorize>
+ 		 
+ 		 <sec:authorize access="isAnonymous()">
+ 		 ANONYM
+ 		 </sec:authorize>
+     </h:body>
+</html>
